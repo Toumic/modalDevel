@@ -103,6 +103,7 @@ def print_hi():
             #
             "# Traitement des demandes des tonalités signées"
             "# Signer le niveau majeur, c'est comme signer la note tonique (note_sig/ind_sig)"
+            tip_form = ["1", "", "", "", "", "", "", "", "", "", "", ""]
             not_alto, not_copa, deg_duo = "", not_type, []
             not_dico.clear()  # not_dico = {'1': ['o', 'o1'], '5': ['*', '*5']}
             if len(not_copa) > 1:
@@ -170,11 +171,11 @@ def print_hi():
                                 if str(gam_k22) not in tip_form and 1 < gam_k22 < 8:
                                     gam_nat.append(gam_k22)
                                 k10 = False
-                                print(lineno(), "*\tBreak K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
-                        if k10:
+                                print(lineno(), "*\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
+                        if k10 and str(gam_k22) not in tip_form:
                             tip_form[gam_k21] = str(k0)
                         k0 += 1
-                        print(lineno(), "Après addition:", tip_form, "gam_nat:", gam_nat)
+                        print(lineno(), "Addition tip_form:", tip_form, "gam_nat:", gam_nat)
                 elif not_dico[k1][0] in tab_inf:  # Le signe d'altération est parmi les signes diminués.
                     print(lineno(), "tab_inf = ['', '-', 'o', '*', '-*', 'o*', '**', '-**', 'o**', '***',,, ")
                     ind_k2 = tab_inf.index(not_dico[k1][0]) - 24  # Son emplacement parmi les signes.
@@ -183,6 +184,7 @@ def print_hi():
                     (lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21, "tip_form:", tip_form[gam_k21])
                     if tip_form[gam_k21] == "":
                         tip_form[gam_k21] = str(k0)
+                        print(lineno(), "tip_form:", tip_form)
                     else:
                         ok_saisie = False
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT  (tab_inf): "
@@ -201,12 +203,12 @@ def print_hi():
                                 if str(gam_k22) not in tip_form and 1 < gam_k22 < 8:
                                     gam_nat.append(gam_k22)
                                 k10 = False
-                                print(lineno(), "*\tBreak K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
-                        if k10:
+                                print(lineno(), "*\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
+                        if k10 and str(gam_k22) not in tip_form:
                             tip_form[gam_k21] = str(k0)
                         k0 -= 1
                         (lineno(), "\tK0:", k0, "20:", gam_k20, "21:", gam_k21, "22:", gam_k22)
-                        print(lineno(), "Après soustraction:", tip_form, "gam_nat:", gam_nat)
+                        print(lineno(), "Soustraction tip_form:", tip_form, "gam_nat:", gam_nat)
                 else:
                     ok_saisie = False
                     (lineno(), "L'altération est inconnue : ", not_dico[k1][0],)
@@ -223,7 +225,7 @@ def print_hi():
                     if tip_form[tf]:
                         cum = str(cum_tip2[ct])
                         tip_form[tf] = cum
-                        (lineno(), "CT:", ct, "tip_form:",  tip_form[tf])
+                        print(lineno(), "CT:", ct, "tip_form:",  tip_form[tf])
                         ct += 1
                         if tip_form[tf] == lis_form[tf]:
                             print(lineno(), "tf:", tf, tip_form[tf], lis_form[tf])
@@ -247,51 +249,7 @@ def print_hi():
     (lineno(), "Tonalité signée not_dico:", not_dico)
     (lineno(), "note_dia:", note_dia, "ind_sig:", ind_sig)
     #
-    #
-    if tip_rich in ("1", "2"):  # dic_codage[336] = Gamme majeure.
-        cle_dic = list(not_dico.keys())
-        tab_form = cle_dic.copy()
-        cle_dic.sort()
-        print(lineno(), "***   cle_dic:", cle_dic)
-        for cd in cle_dic:
-            val_cd = not_dico[cd][0]  # Le signe altératif supporté.
-            if val_cd in tab_sup:
-                ind_cd = tab_sup.index(val_cd), "aug"
-            else:
-                ind_cd = tab_inf.index(val_cd) - 24, "dim"
-            (lineno(), "val_cd:", val_cd, "not_dico[cd]:", not_dico[cd], "CD:", cd)
-            ind_deg = maj_form.index(cd)
-            pos_deg = ind_deg + ind_cd[0]
-            tip_form[pos_deg] = cd
-            cd2 = int(cd)  # cd2 = Reprise du degré original.
-            print(lineno(), "pos_deg:", pos_deg, "ind_deg:", ind_deg, "ind_cd:", ind_cd)
-            if ind_cd[1] == "aug":
-                for pa in range(pos_deg, 12):
-                    cd2 += 1  # Degré original augmenté.
-                    if str(cd2) in not_dico.keys():
-                        print("\t*** CD2 in dico_keys:", "CD2:", cd2, lineno())
-                        break
-                    if cd2 < 8:
-                        ind_cd2 = lis_form.index(str(cd2))
-                        if ind_cd2 == pa + 1:
-                            tip_form[ind_cd2] = str(cd2)
-                            tab_form.append(str(cd2))
-                        print("\t", lineno(), "PA:", pa, "CD2:", cd2, "ind_cd2:", ind_cd2)
-            elif ind_cd[1] == "dim":
-                (lineno(), "lis_form:", lis_form)
-                for pd in range(pos_deg, 1, -1):
-                    cd2 -= 1  # Degré original diminué.
-                    if str(cd2) in not_dico.keys():
-                        print("\t*** CD2 in dico_keys:", "CD2:", cd2, lineno())
-                        break
-                    ind_cd2 = lis_form.index(str(cd2))
-                    print("\t", lineno(), "PD:", pd, "CD2:", cd2, "ind_cd2:", ind_cd2)
-            (lineno(), "ind_deg:", ind_deg, "ind_cd:", ind_cd, "pos_deg:", pos_deg, "tab_form:", tab_form)
-        #
-        for lg in lis_gam1:
-            (lineno(), "LG", lg, "cle_dic:", cle_dic)
-        print(lineno(), "not_dico:", not_dico, "\nlis_form:", lis_form, "\ntip_form:", tip_form)
-    #
+
     '''Tonique déductive : Cherche les formules numéraires similaires dans globdicTcoup.txt {dic_codage}'''
     if tip_rich == "2":
         """Condition utilisant la gamme recherchée dans le fichier[globdicTcoup.txt/dic_codage (dictionnaire)]"""
