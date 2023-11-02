@@ -16,7 +16,7 @@ for pre_cod in pre_codage:
 # print('pre_codage/cod :', cod, ' Nombre de codages modaux.', dic_codage)
 pre_codage.close()
 maj_form = dic_codage[336]
-lis_form = list(maj_form)  # Construction de la liste numéraire majeure
+gam_form = list(maj_form)  # Construction de la liste numéraire majeure
 
 
 def print_hi():
@@ -44,6 +44,19 @@ def print_hi():
                "5": ["*5", "o5", "-5", "5", "+5", "x5"],
                "6": ["-*6", "*6", "o6", "-6", "6", "+6"],
                "7": ["o*7", "-*7", "*7", "o7", "-7", "7"]}
+    # , dic_120 = Les listes dic_deg en zone chromatique
+    dic_120 = {0: ["1"],
+               1: ["-2"],
+               2: ["2", "o3"],
+               3: ["+2", "-3", "o4"],
+               4: ["x2", "3", "-4", "*5"],
+               5: ["^2", "+3", "4", "o5", "-*6"],
+               6: ["+^2", "x3", "+4", "-5", "*6", "o*7"],
+               7: ["^3", "x4", "5", "o6", "-*7"],
+               8: ["^4", "+5", "-6", "*7"],
+               9: ["x5", "6", "o7"],
+               10: ["+6", "-7"],
+               11: ["7"]}
 
     tab_inf.reverse()  # tab_inf = Liste les signes (b) cumulés de zéro à 24 bémols. tab_inf[-2] = 'o'
     tab_inf.remove(tab_inf[-1])
@@ -75,14 +88,13 @@ def print_hi():
     #
     #   ###############################################################################################
     "# Choix d'une définition stricte ou déductive"
-    tip_rich = input("0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
+    tip_rich = "1"  # input("0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
     '''Tonique constructive : Crée une formule numéraire stricte.
     En suivant les choix de l'utilisateur du dictionnaire not_dico'''
     #   ###############################################################################################
     #
     tip_form = ["1", "", "", "", "", "", "", "", "", "", "", ""]
     if tip_rich in ("1", "2"):  # dic_codage[336] = Gamme majeure.
-        ok_saisie = True
         while 1:
             "# Choisir le type de tonalité (pouvant être une mélodique diminuée (o3))"
             '''# Plage des signes portés sur les degrés :  # Dictionnaire {dic_deg}
@@ -103,6 +115,7 @@ def print_hi():
             #
             "# Traitement des demandes des tonalités signées"
             "# Signer le niveau majeur, c'est comme signer la note tonique (note_sig/ind_sig)"
+            ok_saisie = True
             tip_form = ["1", "", "", "", "", "", "", "", "", "", "", ""]
             not_alto, not_copa, deg_duo = "", not_type, []
             not_dico.clear()  # not_dico = {'1': ['o', 'o1'], '5': ['*', '*5']}
@@ -151,7 +164,15 @@ def print_hi():
                     gam_k21 = gam_maj.index(str(k0)) + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
                     (lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21)
                     if tip_form[gam_k21] == "":
-                        tip_form[gam_k21] = str(k0)
+                        if str(k0) in tip_form:
+                            lis_f = [i for i in tip_form if i not in ("", "1")]
+                            if not_dico[k1][1] in dic_120[gam_k21]:
+                                tip_form[gam_k21] = str(int(max(lis_f))+1)
+                            print(lineno(), "dic_120:", dic_120[gam_k21], "not_dico[k1][0]:", not_dico[k1][1])
+                            print(lineno(), "\t* Présent_tip_form:", tip_form, "*\nstr(k0):", str(k0), "lis_f:", lis_f)
+                        else:
+                            tip_form[gam_k21] = str(k0)
+                            print(lineno(), "tip_form:", tip_form)
                     else:
                         ok_saisie = False
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT (tab_sup): "
@@ -181,10 +202,18 @@ def print_hi():
                     ind_k2 = tab_inf.index(not_dico[k1][0]) - 24  # Son emplacement parmi les signes.
                     gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant avoir été altéré.
                     gam_k21 = gam_maj.index(str(k0)) + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
-                    (lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21, "tip_form:", tip_form[gam_k21])
+                    print(lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21, "tip_form:", tip_form[gam_k21])
                     if tip_form[gam_k21] == "":
-                        tip_form[gam_k21] = str(k0)
-                        print(lineno(), "tip_form:", tip_form)
+                        if str(k0) in tip_form:
+                            lis_f = [i for i in tip_form if i not in ("", "1")]
+                            if not_dico[k1][1] in dic_120[gam_k21]:
+                                tip_form[gam_k21] = str(int(min(lis_f))-1)
+                            print(lineno(), "dic_120:", dic_120[gam_k21], "not_dico[k1][0]:", not_dico[k1][1])
+                            print(lineno(), "\t* Présent_tip_form:", tip_form, "*\nstr(k0):", str(k0), "lis_f:", lis_f)
+                            # Erreur avec o5x3
+                        else:
+                            tip_form[gam_k21] = str(k0)
+                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
                     else:
                         ok_saisie = False
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT  (tab_inf): "
@@ -198,38 +227,65 @@ def print_hi():
                     while k0 > 1:  # str(k0) not in k1_dic and
                         gam_k22 = gam_maj.index(str(k0))  # Index degré k0-=1
                         gam_k21 -= 1
+                        print(lineno(), "str(k0):", str(k0), "22:", gam_k22)
                         if gam_k22 < gam_k21 or tip_form[gam_k21] != "":
                             if gam_k22 not in gam_nat:
                                 if str(gam_k22) not in tip_form and 1 < gam_k22 < 8:
                                     gam_nat.append(gam_k22)
                                 k10 = False
                                 print(lineno(), "*\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
+                        if gam_k22 > gam_k21:
+                            tip_form[gam_k21] = str(k0)
+                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
                         if k10 and str(gam_k22) not in tip_form:
                             tip_form[gam_k21] = str(k0)
+                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
                         k0 -= 1
-                        (lineno(), "\tK0:", k0, "20:", gam_k20, "21:", gam_k21, "22:", gam_k22)
-                        print(lineno(), "Soustraction tip_form:", tip_form, "gam_nat:", gam_nat)
+                        print(lineno(), "\tK0:", k0, "20:", gam_k20, "21:", gam_k21, "22:", gam_k22)
+                    print(lineno(), "Soustraction tip_form:", tip_form, "gam_nat:", gam_nat)
                 else:
                     ok_saisie = False
                     (lineno(), "L'altération est inconnue : ", not_dico[k1][0],)
-
                 (lineno(), "K1:", k1, "not_dico[k1]:", not_dico[k1])
+            for i in range(1, 8):
+                if i not in gam_nat and str(i) not in tip_form:
+                    gam_nat.append(i)
+            gam_nat.sort()
+            print(lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat, "dic_120:", dic_120[0])
+
+            "# Vérification de l'ordre croissant des degrés présents dans tip_form"
             cum_tip, ct = [], 0
             for tf in tip_form:
                 if tf:
                     cum_tip.append(int(tf))
-            cum_tip2 = list(cum_tip)
-            cum_tip2.sort()
-            if cum_tip != cum_tip2:  # Les degrés étaient inversés.
-                for tf in range(len(tip_form)):
-                    if tip_form[tf]:
-                        cum = str(cum_tip2[ct])
-                        tip_form[tf] = cum
-                        print(lineno(), "CT:", ct, "tip_form:",  tip_form[tf])
-                        ct += 1
-                        if tip_form[tf] == lis_form[tf]:
-                            print(lineno(), "tf:", tf, tip_form[tf], lis_form[tf])
-                (lineno(), "cum_tip:", cum_tip, "cum_tip2:", cum_tip2)
+            if len(cum_tip) > 7:  # L'algo a produit trop de notes
+                ok_saisie = False
+                print(lineno(), "NOMBRE DE NOTES SUPÉRIEUR À SEPT !")
+            else:
+                cum_tip2 = list(cum_tip)
+                cum_tip2.sort()
+                if cum_tip != cum_tip2:  # Les degrés ne sont pas ordonnés !
+                    print(lineno(), "\n")
+                    "# Mise en forme ordonnée de tip_form"
+                    sauf_tip, deb_tip = 8 - len(cum_tip2), 0
+                    print(lineno(), "\nsauf_tip:", sauf_tip)
+                    for tf in range(len(gam_form)):  # Si le nombre de degrés est inférieur à sept.
+                        cas1 = gam_form[tf]  # gam_form = Gamme majeure
+                        cas2 = tip_form[tf]  # tip_form = Gamme en construction
+                        (lineno(), "\t\tCas:", cas1)
+                        if cas1 != "0":  # Élément majeur
+                            deb_tip += 1
+                            '''if str(cas1) not in tip_form and sauf_tip >= deb_tip:
+                                if cas1 != "1":
+                                    tip_form[tf] = str(cas1)
+                                print(lineno(), "IF cas1:", cas1, "sauf_tip:", sauf_tip, "deb_tip:", deb_tip)
+
+                        if tip_form[tf] != "":
+                            tip_form[tf] = str(deb_tip)
+                            print(lineno(), "EL cas1:", cas1, "deb_tip:", deb_tip, "tip_form:",  tip_form[tf])'''
+                        print(lineno(), deb_tip, "           tip_form:", tip_form, "cas1:", cas1)
+                    print(lineno(), "cum_tip:", cum_tip, "cum_tip2:", cum_tip2)
+
             if ok_saisie:  # Le format de la saisie est accepté.
                 mem_nom, gam_nom = "", "| "
                 for qi in not_dico.keys():
