@@ -71,7 +71,8 @@ def print_hi():
     #
     print(lineno(), "\n##### INPUT TONIQUE ############################################################")
     "# Choisir la tonique par construction ou par déduction"
-    note_dia = input("Choisissez la tonique [C, D, E, F, G, A, B] : ")
+    note_dia = input("<return> par défaut = 'c'.\n"
+                     "Choisissez la tonique [C, D, E, F, G, A, B] : ")
     if note_dia == '':
         note_dia = 'c'
     if not note_dia.isupper():  # Mettre en majuscule.
@@ -79,7 +80,8 @@ def print_hi():
     #
     print(lineno(), "\n##### INPUT ALTÉRATION #########################################################")
     "# L'utilisateur altère la tonique"
-    note_sig = input("Choisissez l'altération [+, x, ^, -, o, *] : ")
+    note_sig = input("<return> par défaut = non-altéré.\n"
+                     "Choisissez l'altération [+, x, ^, -, o, *] : ")
     if note_sig in tab_inf:
         ind_sig = tab_inf.index(note_sig) - 24
     else:
@@ -87,7 +89,8 @@ def print_hi():
     #
     print(lineno(), "\n##### INPUT TYPE RECHERCHE #####################################################")
     "# Choix d'une définition stricte ou déductive"
-    tip_rich = input("0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
+    tip_rich = input("<return> par défaut = '1'.\n"
+                     "0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
     if tip_rich == "":
         tip_rich = "1"
     '''Tonique constructive : Crée une formule numéraire stricte.
@@ -102,12 +105,13 @@ def print_hi():
             deg2[-2, +^2], deg3[o3, ^3], deg4[o4, ^4], deg5[*5, x5], deg6[-*6, +6], deg7[o*7, 7]'''
             tab_type = ["", "majeure", "tonale", "mélodique", "médiane", "dominante", "harmonique", "sensible"]
             if message_erreur:
-                print("################################################################################")
+                print("\n##### ERREUR EN COURS ########################################################")
                 print(lineno(), message_erreur, "Changez votre choix !", not_dico)
             #
             print(lineno(), "\n##### INPUT TYPE RECHERCHE #############################################")
             "# L'utilisateur choisit les notes et les altérations"
             not_type = input("############################ FAITES VOTRE CHOIX #########################\n"
+                             "<return> par défaut = majeure.\n"
                              "[1= majeure, 2=tonale, 3=mélodique, 4=médiane, 5=dominante, 6=harmonique, 7=sensible] \n"
                              "les signes : [+, x, ^, -, o, *]. Une mélo (-3). Une mélo + diminuée harmone (-3o6)\n"
                              "Attention les chevauchements sont transformés.\n"
@@ -163,7 +167,7 @@ def print_hi():
             for k1 in k1_dic:  # Liste les clés de not_dico.keys()
                 k0 = int(k1)  # k0 = Copie le degré original.
                 if not_dico[k1][0] in tab_sup:  # Le signe d'altération est parmi les signes augmentés.
-                    (lineno(), "tab_sup = ['', '+', 'x', '^', '+^', 'x^', '^^', '+^^', 'x^^',,, ")
+                    print(lineno(), "tab_sup = ['', '+', 'x', '^', '+^', 'x^', '^^', '+^^', 'x^^',,, ")
                     ind_k2 = tab_sup.index(not_dico[k1][0])  # Son emplacement parmi les signes.
                     gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant d'avoir été altéré.
                     gam_k21 = gam_maj.index(str(k0)) + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
@@ -184,7 +188,7 @@ def print_hi():
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT (tab_sup): "
                         print(lineno(), message_erreur, tip_form[gam_k21], "et : ", not_dico[k1][1])
                         print(lineno(), "Case occupée K0 : ", k0, tip_form)
-                        print(lineno(), "Erreur")
+                        print(lineno(), "Erreur \n")
                     k0 += 1  # Pour inspecter les degrés supérieurs.
                     # Bouclage jusqu'à ce que k0 n'atteigne plus les notes naturelles...
                     "# Le nouveau degré se trouve aussi dans le choix de l'utilisateur."
@@ -202,7 +206,7 @@ def print_hi():
                         k0 += 1
                         (lineno(), "Addition tip_form:", tip_form)
                 elif not_dico[k1][0] in tab_inf:  # Le signe d'altération est parmi les signes diminués.
-                    (lineno(), "tab_inf = ['', '-', 'o', '*', '-*', 'o*', '**', '-**', 'o**', '***',,, ")
+                    print(lineno(), "tab_inf = ['', '-', 'o', '*', '-*', 'o*', '**', '-**', 'o**', '***',,, ")
                     ind_k2 = tab_inf.index(not_dico[k1][0]) - 24  # Son emplacement parmi les signes.
                     gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant avoir été altéré.
                     gam_k21 = gam_maj.index(str(k0)) + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
@@ -223,7 +227,7 @@ def print_hi():
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT  (tab_inf): "
                         print(lineno(), message_erreur, tip_form[gam_k21], "et : ", not_dico[k1][1])
                         print(lineno(), "Case occupée K0:", k0, tip_form)
-                        print(lineno(), "Erreur")
+                        print(lineno(), "Erreur \n")
                     k0 -= 1  # Pour inspecter les degrés inférieurs.
                     # Le nouveau degré ne se trouve pas dans le choix de l'utilisateur.
                     "# k0 n'est pas dans le dictionnaire saisi par l'utilisateur."
@@ -240,7 +244,7 @@ def print_hi():
                             (lineno(), "tip_form:", tip_form, "str(k0):", str(k0), "22.21:", gam_k22, gam_k21)
                         if k10 and str(k0) not in tip_form:
                             tip_form[gam_k21] = str(k0)
-                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
+                            (lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
                         k0 -= 1
                         (lineno(), "\tK0:", k0, "20:", gam_k20, "21:", gam_k21, "22:", gam_k22)
                     (lineno(), "Soustraction tip_form:", tip_form)
