@@ -69,27 +69,27 @@ def print_hi():
     not_dico = {}  # Dictionnaire contenant le(s) choix utilisateur.
     mod_use = ""
     #
-    #   ###############################################################################################
+    print(lineno(), "\n##### INPUT TONIQUE ############################################################")
     "# Choisir la tonique par construction ou par déduction"
-    note_dia = "d"  # input("Choisissez la tonique [C, D, E, F, G, A, B] : ")
-    #   ###############################################################################################
-    #
+    note_dia = input("Choisissez la tonique [C, D, E, F, G, A, B] : ")
+    if note_dia == '':
+        note_dia = 'c'
     if not note_dia.isupper():  # Mettre en majuscule.
         note_dia = note_dia.upper()  # ("Note transformée en majuscule", note_dia)
     #
-    #   ###############################################################################################
+    print(lineno(), "\n##### INPUT ALTÉRATION #########################################################")
     "# L'utilisateur altère la tonique"
-    note_sig = ""  # input("Choisissez l'altération [+, x, ^, -, o, *] : ")
-    #   ###############################################################################################
-    #
+    note_sig = input("Choisissez l'altération [+, x, ^, -, o, *] : ")
     if note_sig in tab_inf:
         ind_sig = tab_inf.index(note_sig) - 24
     else:
         ind_sig = tab_sup.index(note_sig)
     #
-    #   ###############################################################################################
+    print(lineno(), "\n##### INPUT TYPE RECHERCHE #####################################################")
     "# Choix d'une définition stricte ou déductive"
-    tip_rich = "1"  # input("0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
+    tip_rich = input("0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
+    if tip_rich == "":
+        tip_rich = "1"
     '''Tonique constructive : Crée une formule numéraire stricte.
     En suivant les choix de l'utilisateur du dictionnaire not_dico'''
     #   ###############################################################################################
@@ -102,18 +102,21 @@ def print_hi():
             deg2[-2, +^2], deg3[o3, ^3], deg4[o4, ^4], deg5[*5, x5], deg6[-*6, +6], deg7[o*7, 7]'''
             tab_type = ["", "majeure", "tonale", "mélodique", "médiane", "dominante", "harmonique", "sensible"]
             if message_erreur:
-                print("############################################################################")
+                print("################################################################################")
                 print(lineno(), message_erreur, "Changez votre choix !", not_dico)
             #
-            #   ###############################################################################################
-            not_type = input("############################ FAITES VOTRE CHOIX ############################\n"
+            print(lineno(), "\n##### INPUT TYPE RECHERCHE #############################################")
+            "# L'utilisateur choisit les notes et les altérations"
+            not_type = input("############################ FAITES VOTRE CHOIX #########################\n"
                              "[1= majeure, 2=tonale, 3=mélodique, 4=médiane, 5=dominante, 6=harmonique, 7=sensible] \n"
                              "les signes : [+, x, ^, -, o, *]. Une mélo (-3). Une mélo + diminuée harmone (-3o6)\n"
-                             "Attention les chevauchements sont transformés\n"
+                             "Attention les chevauchements sont transformés.\n"
+                             "Pour '1' = majeur : La tonique n'est pas traitée mais son altération est valide\n"
                              "Vérifiez votre sélection pour éviter les erreurs (Les notes se suivent dans l'ordre)\n"
                              "Choisir un type ou plusieurs types de gamme : ")
-            #   ###############################################################################################
+            #   #######################################################################################
             #
+            print(lineno())
             "# Traitement des demandes des tonalités signées"
             "# Signer le niveau majeur, c'est comme signer la note tonique (note_sig/ind_sig)"
             ok_saisie = True
@@ -167,7 +170,7 @@ def print_hi():
                     (lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21)
                     if tip_form[gam_k21] == "":
                         if str(k0) in tip_form:
-                            lis_f = [i for i in tip_form if i not in ("", "1")]
+                            lis_f = [i for i in tip_form if i not in ("", "1")]  # La tonique est omise ici
                             if not_dico[k1][1] in dic_120[gam_k21]:
                                 tip_form[gam_k21] = str(int(max(lis_f))+1)
                                 (lineno(), "tip_form:", tip_form)
@@ -214,7 +217,7 @@ def print_hi():
                             # Erreur avec o5x3
                         else:
                             tip_form[gam_k21] = str(k0)
-                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
+                            (lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
                     else:
                         ok_saisie = False
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT  (tab_inf): "
@@ -249,7 +252,7 @@ def print_hi():
                 if i not in gam_nat and str(i) not in tip_form:
                     gam_nat.append(i)
             gam_nat.sort()
-            (lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat)
+            print(lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat)
 
             if ok_saisie:  # Le format de la saisie est accepté.
                 mem_nom, gam_nom = "", "| "
