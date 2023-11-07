@@ -82,10 +82,13 @@ def print_hi():
     "# L'utilisateur altère la tonique"
     note_sig = input("<return> par défaut = non-altéré.\n"
                      "Choisissez l'altération [+, x, ^, -, o, *] : ")
-    if note_sig in tab_inf:
-        ind_sig = tab_inf.index(note_sig) - 24
-    else:
-        ind_sig = tab_sup.index(note_sig)
+    ind_sig = ""
+    if note_sig != "":
+        if note_sig in tab_inf:
+            ind_sig = tab_inf.index(note_sig) - 24
+        else:
+            ind_sig = tab_sup.index(note_sig)
+    note_sig = ind_sig
     #
     print(lineno(), "\n##### INPUT TYPE RECHERCHE #####################################################")
     "# Choix d'une définition stricte ou déductive"
@@ -166,88 +169,84 @@ def print_hi():
             (lineno(), "not_dico:", not_dico)
             for k1 in k1_dic:  # Liste les clés de not_dico.keys()
                 k0 = int(k1)  # k0 = Copie le degré original.
+                print("K ZÉRO", k0)
                 if not_dico[k1][0] in tab_sup:  # Le signe d'altération est parmi les signes augmentés.
                     print(lineno(), "tab_sup = ['', '+', 'x', '^', '+^', 'x^', '^^', '+^^', 'x^^',,, ")
                     ind_k2 = tab_sup.index(not_dico[k1][0])  # Son emplacement parmi les signes.
                     gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant d'avoir été altéré.
-                    gam_k21 = gam_maj.index(str(k0)) + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
-                    (lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21)
+                    gam_k21 = gam_k20 + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
+                    print(lineno(), "^^^^^^^^ K0:", k0, "ind_k2:", ind_k2, "gam_k20:", gam_k20, "gam_k21:", gam_k21)
                     if tip_form[gam_k21] == "":
                         if str(k0) in tip_form:
                             lis_f = [i for i in tip_form if i not in ("", "1")]  # La tonique est omise ici
                             if not_dico[k1][1] in dic_120[gam_k21]:
                                 tip_form[gam_k21] = str(int(max(lis_f))+1)
-                                (lineno(), "tip_form:", tip_form)
+                                print(lineno(), "tip_form:", tip_form)
                             (lineno(), "dic_120:", dic_120[gam_k21], "not_dico[k1][0]:", not_dico[k1][1])
-                            (lineno(), "\t* Présent_tip_form:", tip_form, "*\nstr(k0):", str(k0), "lis_f:", lis_f)
+                            print(lineno(), "\t* Présent_tip_form:", tip_form, "*\nstr(k0):", str(k0), "lis_f:", lis_f)
                         else:
                             tip_form[gam_k21] = str(k0)
-                            (lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
-                    else:
+                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
+                    elif str(k0) != "1":
                         ok_saisie = False
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT (tab_sup): "
                         print(lineno(), message_erreur, tip_form[gam_k21], "et : ", not_dico[k1][1])
                         print(lineno(), "Case occupée K0 : ", k0, tip_form)
                         print(lineno(), "Erreur \n")
-                    k0 += 1  # Pour inspecter les degrés supérieurs.
+
                     # Bouclage jusqu'à ce que k0 n'atteigne plus les notes naturelles...
-                    "# Le nouveau degré se trouve aussi dans le choix de l'utilisateur."
-                    k10 = True
+                    k0 += 1  # Pour inspecter les degrés supérieurs.
                     while k0 < 8:  # str(k0) not in k1_dic and
-                        gam_k22 = gam_maj.index(str(k0))  # Index degré k0+=1
-                        gam_k21 += 1
-                        (lineno(), "\tK0:", k0, "gam_k22:", gam_k22, "gam_k21:", gam_k21)
-                        if gam_k22 > gam_k21 or tip_form[gam_k21] != "":
-                            k10 = False
-                            (lineno(), "***\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
-                        if k10 and str(k0) not in (tip_form, k1_dic):
+                        gam_k22 = gam_maj.index(str(k0))  # Index degré k0+=1 majeur
+                        gam_k21 += 1  # Incrémentation de l'index par demi-ton
+                        print(lineno(), "________\tK0:", k0, "gam_k22(maj):", gam_k22, "gam_k21:", gam_k21)
+                        if gam_k22 > gam_k21 or tip_form[gam_k21] != "" or str(k0) in k1_dic:
+                            print(lineno(), "*BREAK_sup*\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
+                            break
+                        elif gam_k22 <= gam_k21:
                             tip_form[gam_k21] = str(k0)
-                            (lineno(), "k10:", k10, "tip_form:", tip_form, "str(k0):", str(k0))
+                            (lineno(), "tip_form:", tip_form, "str(k0):", str(k0), "k1_dic:", k1_dic)
                         k0 += 1
-                        (lineno(), "Addition tip_form:", tip_form)
+                        print(lineno(), "Addition tip_form:", tip_form)
                 elif not_dico[k1][0] in tab_inf:  # Le signe d'altération est parmi les signes diminués.
                     print(lineno(), "tab_inf = ['', '-', 'o', '*', '-*', 'o*', '**', '-**', 'o**', '***',,, ")
                     ind_k2 = tab_inf.index(not_dico[k1][0]) - 24  # Son emplacement parmi les signes.
                     gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant avoir été altéré.
                     gam_k21 = gam_maj.index(str(k0)) + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
-                    (lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21, "tip_form:", tip_form[gam_k21])
+                    print(lineno(), "K0:", k0, "gam_k20:", gam_k20, "gam_k21:", gam_k21, "tip_form:", tip_form[gam_k21])
                     if tip_form[gam_k21] == "":
                         if str(k0) in tip_form:
                             lis_f = [i for i in tip_form if i not in ("", "1")]
                             if not_dico[k1][1] in dic_120[gam_k21] and int(min(lis_f))-1 != 1:
                                 tip_form[gam_k21] = str(int(min(lis_f))-1)
+                                print(lineno(), "tip_form:", tip_form)
                             (lineno(), "dic_120:", dic_120[gam_k21], "not_dico[k1][0]:", not_dico[k1][1])
-                            (lineno(), "\t* Présent_tip_form:", tip_form, "*\nstr(k0):", str(k0), "lis_f:", lis_f)
-                            # Erreur avec o5x3
+                            print(lineno(), "\t* Présent_tip_form:", tip_form, "*\nstr(k0):", str(k0), "lis_f:", lis_f)
                         else:
                             tip_form[gam_k21] = str(k0)
-                            (lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
-                    else:
+                            print(lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
+                    elif str(k0) != "1":
                         ok_saisie = False
                         message_erreur = "DEUX NOTES ARRIVENT AU MÊME EMPLACEMENT  (tab_inf): "
                         print(lineno(), message_erreur, tip_form[gam_k21], "et : ", not_dico[k1][1])
                         print(lineno(), "Case occupée K0:", k0, tip_form)
                         print(lineno(), "Erreur \n")
-                    k0 -= 1  # Pour inspecter les degrés inférieurs.
                     # Le nouveau degré ne se trouve pas dans le choix de l'utilisateur.
                     "# k0 n'est pas dans le dictionnaire saisi par l'utilisateur."
-                    k10 = True
+                    k0 -= 1  # Pour inspecter les degrés inférieurs.
                     while k0 > 1:  # str(k0) not in k1_dic and
                         gam_k22 = gam_maj.index(str(k0))  # Index degré k0-=1
                         gam_k21 -= 1
-                        (lineno(), "str(k0):", str(k0), "\tgam_k22:", gam_k22)
-                        if gam_k22 < gam_k21 or tip_form[gam_k21] != "":
-                            k10 = False
-                            (lineno(), "***\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
-                        if gam_k22 > gam_k21 >= gam_maj.index(str(k0)):
+                        print(lineno(), "str(k0):", str(k0), "\tgam_k22:", gam_k22, "gam_k21:", gam_k21)
+                        if gam_k22 < gam_k21 or tip_form[gam_k21] != "" or str(k0) in k1_dic:
+                            print(lineno(), "*BREAK_inf*\t K0:", k0, "tip_form[gam_k21]:", tip_form[gam_k21])
+                            break
+                        if gam_k22 >= gam_k21:
                             tip_form[gam_k21] = str(k0)
                             (lineno(), "tip_form:", tip_form, "str(k0):", str(k0), "22.21:", gam_k22, gam_k21)
-                        if k10 and str(k0) not in tip_form:
-                            tip_form[gam_k21] = str(k0)
-                            (lineno(), "tip_form:", tip_form, "str(k0):", str(k0))
                         k0 -= 1
                         (lineno(), "\tK0:", k0, "20:", gam_k20, "21:", gam_k21, "22:", gam_k22)
-                    (lineno(), "Soustraction tip_form:", tip_form)
+                    print(lineno(), "Soustraction tip_form:", tip_form)
                 else:
                     ok_saisie = False
                     (lineno(), "L'altération est inconnue : ", not_dico[k1][0],)
@@ -256,14 +255,14 @@ def print_hi():
                 if i not in gam_nat and str(i) not in tip_form:
                     gam_nat.append(i)
             gam_nat.sort()
-            print(lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat)
+            (lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat)
 
             if ok_saisie:  # Le format de la saisie est accepté.
                 mem_nom, gam_nom = "", "| "
                 for qi in not_dico.keys():
                     mem_nom += not_dico[qi][1]
                     gam_nom += tab_type[int(qi)] + " | "
-                (lineno(), "mem_nom:", mem_nom, "gam_nom:", gam_nom, "SAISIE OK ----\n\n", tip_form)
+                (lineno(), "mem_nom:", mem_nom, "gam_nom:", gam_nom, "SAISIE OK ----\n", tip_form)
                 for ind in range(len(tip_form)):
                     ind1 = tip_form[ind]  # Données construites
                     ind2 = gam_maj[ind]  # Données majeures
@@ -278,16 +277,18 @@ def print_hi():
                 print(lineno(), "\tmod_use:", mod_use, "gam_nat:", gam_nat)
                 break
 
-    if "1" in not_dico.keys():
+    if "1" in not_dico.keys() and not_dico["1"][0] != "":  # Un choix est porté sur la tonique altérée
         '''Quand dans le choix, il y a [signé majeur] = le signé majeur remplace la valeur de note_sig'''
         note_sig = not_dico["1"][0]
-        if note_sig in tab_sup:
-            ind_sig = tab_sup.index(note_sig)
-        elif note_sig in tab_inf:
-            ind_sig = tab_inf.index(note_sig) - 24
-        print(lineno(), "note_sig:", note_sig)
+        if note_sig != "":
+            if note_sig in tab_sup:
+                ind_sig = tab_sup.index(note_sig)
+            elif note_sig in tab_inf:
+                ind_sig = tab_inf.index(note_sig) - 24
+            (lineno(), "note_dia:", note_dia, "\t\tind_sig:", ind_sig)
+            note_sig = ind_sig
+    print(lineno(), "note_sig:", note_sig)
     (lineno(), "Tonalité signée not_dico:", not_dico)
-    (lineno(), "note_dia:", note_dia, "\t\tind_sig:", ind_sig)
     #
 
     '''Tonique déductive : Cherche les formules numéraires similaires dans globdicTcoup.txt {dic_codage}'''
@@ -338,7 +339,7 @@ def print_hi():
                 mod_bin.append('1')
             else:
                 mod_bin.append('0')
-        print(lineno(), "mod_bin:", mod_bin, "\n\tmodule:", module)
+        print(lineno(), "mod_bin:", mod_bin, "\tmodule:", module)
 
         "# 2 Transformation en mode unaire"
         mod_jeu, mid_mod, mid_jeu = "", [], []
@@ -385,9 +386,9 @@ def print_hi():
     # Définir la gamme analogique qui est en relation avec la saisie utilisateur.
     def gamme():
         """Fonction chargée de transformer une forme numéraire en une forme analogique"""
-        print(lineno(), "dic_maj:", dic_maj[note_dia], "\nnote_dia:", note_dia)
-        print(lineno(), "dic_maj:", dic_gam, "\n:", )
-        print(lineno(), ":", )
+        print(lineno(), "dic_maj:", dic_maj[note_dia], "note_dia:", note_dia)
+        (lineno(), "dic_maj:", dic_gam, "\n:", )
+        (lineno(), ":", )
 
     # Fonction principale ☺
     if mod_use:
