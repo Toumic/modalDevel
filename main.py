@@ -83,12 +83,13 @@ def print_hi():
     "# L'utilisateur altère la tonique"
     note_sig = input("<return> par défaut = non-altéré.\n"
                      "Choisissez l'altération [+, x, ^, -, o, *] : ")
-    ind_sig = ""
     if note_sig != "":
         if note_sig in tab_inf:
             ind_sig = tab_inf.index(note_sig) - 24
         else:
             ind_sig = tab_sup.index(note_sig)
+    else:
+        ind_sig = "0"
     note_sig = ind_sig
     #
     print(lineno(), "\n##### INPUT TYPE RECHERCHE #####################################################")
@@ -256,7 +257,7 @@ def print_hi():
                 if i not in gam_nat and str(i) not in tip_form:
                     gam_nat.append(i)
             gam_nat.sort()
-            print(lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat)
+            (lineno(), "F tip_form:", tip_form, "gam_nat:", gam_nat)
 
             if ok_saisie:  # Le format de la saisie est accepté.
                 mem_nom, gam_nom = "", "| "
@@ -287,8 +288,10 @@ def print_hi():
             elif note_sig in tab_inf:
                 ind_sig = tab_inf.index(note_sig) - 24
             (lineno(), "note_dia:", note_dia, "\t\tind_sig:", ind_sig)
-            note_sig = ind_sig
-    print(lineno(), "note_sig:", note_sig, "tip_form:", tip_form)
+        else:
+            ind_sig = "0"
+        note_sig = ind_sig
+    (lineno(), "note_sig:", note_sig, "tip_form:", tip_form)
     (lineno(), "Tonalité signée not_dico:", not_dico)
     #
 
@@ -384,12 +387,20 @@ def print_hi():
             (lineno(), "mod_mod:", mod_mod[xm], "mod_jeu:", mod_jeu, "mid_jeu:", mid_jeu)
         (lineno(), "FOR Fonction mode:", module, type(module))
 
-    def sig_val(ds):
+    def signal(ds):
         """Reçoit l'altération et retourne sa valeur"""
-        if ds in tab_sup:
-            ind_ds = tab_sup.index(ds)
-        else:
-            ind_ds = tab_inf.index(ds) - 24
+        ind_ds = None  # Déclaration de la variable.
+        if isinstance(ds, str):
+            if ds in tab_sup:
+                ind_ds = tab_sup.index(ds)
+            else:
+                ind_ds = tab_inf.index(ds) - 24
+        elif isinstance(ds, int):
+            if ds > -1:
+                ind_ds = tab_sup[ds]
+            else:
+                ind_ds = tab_inf[ds]
+        print(lineno(), "note_sig", note_sig, "ind_ds:", ind_ds, "ds:", ds)
         return ind_ds
 
     # Définir la gamme analogique qui est en relation avec la saisie utilisateur.
@@ -404,20 +415,16 @@ def print_hi():
                 deg_maj = dic_maj[note_dia][ind_maj]
                 if len(deg_maj) > 1:  # Le degré majeur est altéré.
                     deg_sig = deg_maj[:len(deg_maj) - 1]  # Récupération de l'altération
-                    val_sig = sig_val(deg_sig)
+                    val_sig = signal(deg_sig)
                     sig_loc += val_sig
                     deg_maj = deg_maj[len(deg_maj)-1:]
-                    (lineno(), "deg_maj:", deg_maj, "deg_sig:", deg_sig, "val_sig:", val_sig, "sig_loc1:", sig_loc)
-                if sig_loc != 0:
-                    if sig_loc > 0:
-                        sig_note = tab_sup[sig_loc]
-                    else:
-                        sig_note = tab_inf[sig_loc]
-                    deg_maj = sig_note + deg_maj
-                    (lineno(), "sig_loc:", sig_loc, "deg_maj:", deg_maj)
+                    (lineno(), "deg_maj:", deg_maj, "deg_sig:", deg_sig, "val_sig:", val_sig, "sig_loc:", sig_loc)
+                sig_loc += int(note_sig)
+                val_sig = signal(sig_loc)
+                deg_maj = val_sig + deg_maj
                 gam_util.append(deg_maj)
-                print(yo, lineno(), "gam_maj:", gam_maj[yo], "deg_maj:", deg_maj, "mod_use:", mod_use[yo])
-                print(yo, lineno(), "dic_maj:", dic_maj[note_dia][yo], "ind_maj:", ind_maj, "sig_loc:", sig_loc)
+                (yo, lineno(), "gam_maj:", gam_maj[yo], "deg_maj:", deg_maj, "mod_use:", mod_use[yo])
+                (yo, lineno(), "dic_maj:", dic_maj[note_dia][yo], "ind_maj:", ind_maj, "sig_loc:", sig_loc)
         print("\n", lineno(), "dic_gam:", dic_gam, "\n tip_form:", tip_form, "\n gam_util:", gam_util)
         (lineno(), ":",)
 
