@@ -16,51 +16,51 @@ Dictionnaire pre_physic = Clefs toniques primitives en version physique (poids).
 
 "# Permettre la lecture des noms de gammes à l'envers (précaution) : variable = 'str', variable[::-1] = 'rts'."
 pre_classic = {
-    "102034050607": [["0", 336], []], "120034050607": [["-2", 210], []], "100234050607": [["+2", 392], []],
-    "102304050607": [["-3", 301], []], "102034500607": [["-5", 341], []], "102034056007": [["-6", 330], []],
-    "102034050067": [["+6", 339], []], "120304050607": [["-23", 175], []], "120034500607": [["-25", 215], []],
-    "120034005607": [["-25+", 201], []], "120034056007": [["-26", 204], []], "120034050067": [["-26+", 213], []],
-    "100234500607": [["+25-", 397], []], "100234056007": [["+26-", 386], []], "100234050067": [["+26", 395], []],
-    "102340050607": [["-4", 272], []], "102304500607": [["-35", 306], []], "102304005607": [["-35+", 292], []],
-    "102304056007": [["-36", 295], []], "102304050067": [["-36+", 304], []], "102034506007": [["-56", 338], []],
-    "102034500067": [["-36+", 342], []], "102034005067": [["+56", 333], []], "120340050607": [["-24", 146], []],
-    "102030045067": [["x46+", 356], []], "102030400567": [["+45x", 343], []], "100234000567": [["+25x", 379], []],
-    "123004500607": [["o35-", 110], []], "102003400567": [["+35x", 358], []], "120034560007": [["-26o", 206], []],
-    "102340005607": [["-45+", 258], []], "102340050067": [["-46+", 278], []], "102300045607": [["-34x", 320], []],
-    "102003045607": [["+34", 370], []], "102340500607": [["-45", 281], []], "102034000567": [["x5", 323], []],
-    "102030040567": [["x45+", 353], []], "102340560007": [["-46o", 265], []], "100200345607": [["+23x", 431], []],
-    "120345000607": [["-25o", 160], []], "102000345067": [["x36+", 376], []], "123040050607": [["-34", 76], []],
-    "102000345607": [["x3", 375], []], "123045000607": [["o63-", 90], []], "123004050607": [["o3", 105], []],
-    "102345060007": [["o65-", 277], []], "123405000607": [["o54-", 50], []], "102030004567": [["^4", 357], []],
-    "102003004567": [["+34x", 372], []], "123400050607": [["o4", 27], []], "123400500607": [["o45-", 41], []],
-    "123400056007": [["o46-", 12], []], "102345000607": [["o5", 286], []], "123004050067": [["o36+", 108], []],
-    "123004005607": [["o35+", 96], []], "102345600007": [["*6", 267], []], "123400050067": [["o46+", 37], []],
-    "123450000607": [["*5", 55], []], "123004000567": [["o35x", 92], []], "123000045607": [["o34x", 124], []],
-    "102340000567": [["-45x", 253], []], "102034560007": [["o6", 332], []], "100023456007": [["x26-", 440], []],
-    "100002345607": [["^2", 458], []], "102000034567": [["^3", 378], []], "123400000567": [["o45x", 1], []]}
+    "102034050607": ["0", 336], "120034050607": ["-2", 210], "100234050607": ["+2", 392],
+    "102304050607": ["-3", 301], "102034500607": ["-5", 341], "102034056007": ["-6", 330],
+    "102034050067": ["+6", 339], "120304050607": ["-23", 175], "120034500607": ["-25", 215],
+    "120034005607": ["-25+", 201], "120034056007": ["-26", 204], "120034050067": ["-26+", 213],
+    "100234500607": ["+25-", 397], "100234056007": ["+26-", 386], "100234050067": ["+26", 395],
+    "102340050607": ["-4", 272], "102304500607": ["-35", 306], "102304005607": ["-35+", 292],
+    "102304056007": ["-36", 295], "102304050067": ["-36+", 304], "102034506007": ["-56", 338],
+    "102034500067": ["-36+", 342], "102034005067": ["+56", 333], "120340050607": ["-24", 146],
+    "102030045067": ["x46+", 356], "102030400567": ["+45x", 343], "100234000567": ["+25x", 379],
+    "123004500607": ["o35-", 110], "102003400567": ["+35x", 358], "120034560007": ["-26o", 206],
+    "102340005607": ["-45+", 258], "102340050067": ["-46+", 278], "102300045607": ["-34x", 320],
+    "102003045607": ["+34", 370], "102340500607": ["-45", 281], "102034000567": ["x5", 323],
+    "102030040567": ["x45+", 353], "102340560007": ["-46o", 265], "100200345607": ["+23x", 431],
+    "120345000607": ["-25o", 160], "102000345067": ["x36+", 376], "123040050607": ["-34", 76],
+    "102000345607": ["x3", 375], "123045000607": ["o63-", 90], "123004050607": ["o3", 105],
+    "102345060007": ["o65-", 277], "123405000607": ["o54-", 50], "102030004567": ["^4", 357],
+    "102003004567": ["+34x", 372], "123400050607": ["o4", 27], "123400500607": ["o45-", 41],
+    "123400056007": ["o46-", 12], "102345000607": ["o5", 286], "123004050067": ["o36+", 108],
+    "123004005607": ["o35+", 96], "102345600007": ["*6", 267], "123400050067": ["o46+", 37],
+    "123450000607": ["*5", 55], "123004000567": ["o35x", 92], "123000045607": ["o34x", 124],
+    "102340000567": ["-45x", 253], "102034560007": ["o6", 332], "100023456007": ["x26-", 440],
+    "100002345607": ["^2", 458], "102000034567": ["^3", 378], "123400000567": ["o45x", 1]}
 pre_physic = {
-    "102034050607": [["0", 336], []], "120034050607": [["-2", 210], []], "100234050607": [["+2", 392], []],
-    "102304050607": [["-3", 301], []], "102034500607": [["-5", 341], []], "102034056007": [["-6", 330], []],
-    "102034050067": [["+6", 339], []], "120304050607": [["-23", 175], []], "120034500607": [["-25", 215], []],
-    "120034005607": [["-25+", 201], []], "100234005607": [["+25", 383], []], "120034050067": [["-26+", 213], []],
-    "100234500607": [["+25-", 397], []], "100234056007": [["+26-", 386], []], "100234050067": [["+26", 395], []],
-    "102340050607": [["-4", 272], []], "102304500607": [["-35", 306], []], "102304005607": [["-35+", 292], []],
-    "102034005607": [["+5", 327], []], "102304050067": [["-36+", 304], []], "102034506007": [["-56", 338], []],
-    "102034500067": [["-36+", 342], []], "100203450607": [["+23", 422], []], "120340050607": [["-24", 146], []],
-    "102030045067": [["x46+", 356], []], "102030400567": [["+45x", 343], []], "100023450067": [["x26+", 444], []],
-    "123004500607": [["o35-", 110], []], "102003400567": [["+35x", 358], []], "100023400567": [["x25", 435], []],
-    "102340005607": [["-45+", 258], []], "102340050067": [["-46+", 278], []], "102300045607": [["-34x", 320], []],
-    "102003045607": [["+34", 370], []], "102340500607": [["-45", 281], []], "100023450607": [["x2", 443], []],
-    "102030040567": [["x45+", 353], []], "100023045607": [["x24+", 447], []], "100200345607": [["+23x", 431], []],
-    "120345000607": [["-25o", 160], []], "102000345067": [["x36+", 376], []], "123040050607": [["-34", 76], []],
-    "102304000567": [["x53-", 288], []], "100020345607": [["x23+", 452], []], "123004050607": [["o3", 105], []],
-    "102345060007": [["o65-", 277], []], "102000304567": [["x34+", 377], []], "102030004567": [["^4", 357], []],
-    "102003004567": [["+34x", 372], []], "123400050607": [["o4", 27], []], "123400500607": [["o45-", 41], []],
-    "100234560007": [["+26o", 388], []], "102345000607": [["o5", 286], []], "123004050067": [["o36+", 108], []],
-    "102345006007": [["o56-", 283], []], "100002304567": [["^24+", 460], []], "100020034567": [["x23", 455], []],
-    "100002034567": [["^23+", 461], []], "120030004567": [["^42-", 231], []], "102345000067": [["+65o", 287], []],
-    "102340000567": [["-45x", 253], []], "102034560007": [["o6", 332], []], "100023456007": [["x26-", 440], []],
-    "102300004567": [["^43-", 322], []], "102000034567": [["^3", 378], []], "100000234567": [["+^2", 462], []]}
+    "102034050607": ["0", 336], "120034050607": ["-2", 210], "100234050607": ["+2", 392],
+    "102304050607": ["-3", 301], "102034500607": ["-5", 341], "102034056007": ["-6", 330],
+    "102034050067": ["+6", 339], "120304050607": ["-23", 175], "120034500607": ["-25", 215],
+    "120034005607": ["-25+", 201], "100234005607": ["+25", 383], "120034050067": ["-26+", 213],
+    "100234500607": ["+25-", 397], "100234056007": ["+26-", 386], "100234050067": ["+26", 395],
+    "102340050607": ["-4", 272], "102304500607": ["-35", 306], "102304005607": ["-35+", 292],
+    "102034005607": ["+5", 327], "102304050067": ["-36+", 304], "102034506007": ["-56", 338],
+    "102034500067": ["-36+", 342], "100203450607": ["+23", 422], "120340050607": ["-24", 146],
+    "102030045067": ["x46+", 356], "102030400567": ["+45x", 343], "100023450067": ["x26+", 444],
+    "123004500607": ["o35-", 110], "102003400567": ["+35x", 358], "100023400567": ["x25", 435],
+    "102340005607": ["-45+", 258], "102340050067": ["-46+", 278], "102300045607": ["-34x", 320],
+    "102003045607": ["+34", 370], "102340500607": ["-45", 281], "100023450607": ["x2", 443],
+    "102030040567": ["x45+", 353], "100023045607": ["x24+", 447], "100200345607": ["+23x", 431],
+    "120345000607": ["-25o", 160], "102000345067": ["x36+", 376], "123040050607": ["-34", 76],
+    "102304000567": ["x53-", 288], "100020345607": ["x23+", 452], "123004050607": ["o3", 105],
+    "102345060007": ["o65-", 277], "102000304567": ["x34+", 377], "102030004567": ["^4", 357],
+    "102003004567": ["+34x", 372], "123400050607": ["o4", 27], "123400500607": ["o45-", 41],
+    "100234560007": ["+26o", 388], "102345000607": ["o5", 286], "123004050067": ["o36+", 108],
+    "102345006007": ["o56-", 283], "100002304567": ["^24+", 460], "100020034567": ["x23", 455],
+    "100002034567": ["^23+", 461], "120030004567": ["^42-", 231], "102345000067": ["+65o", 287],
+    "102340000567": ["-45x", 253], "102034560007": ["o6", 332], "100023456007": ["x26-", 440],
+    "102300004567": ["^43-", 322], "102000034567": ["^3", 378], "100000234567": ["+^2", 462]}
 cle_classic, cle_physic = list(pre_classic.keys()), list(pre_physic.keys())
 dic_codage = {}
 pre_codage = open('globdicTcoup.txt', 'r')
@@ -68,14 +68,16 @@ cod = 0
 for pre_cod in pre_codage:
     cod += 1
     dic_codage[cod] = pre_cod[:12]
-    abc = "100234005607"
-    '''if dic_codage[cod] == abc:
+    '''abc = "100234005607"
+    if dic_codage[cod] == abc:
         print("cod:", cod,)'''
 # print('pre_codage/cod :', cod, ' Nombre de codages modaux.', dic_codage)
 pre_codage.close()
 maj_form = dic_codage[336]
 gam_form = list(maj_form)  # Construction de la liste numéraire majeure
 gam_util = []
+tab_key = []
+classic_physic = {}
 
 
 def print_hi():
@@ -120,6 +122,7 @@ def print_hi():
     tab_inf.reverse()  # tab_inf = Liste les signes (b) cumulés de zéro à 24 bémols. tab_inf[-2] = 'o'
     tab_inf.remove(tab_inf[-1])
     gam_maj = ['1', '0', '2', '0', '3', '4', '0', '5', '0', '6', '0', '7']
+    deg_rom = ["I", "II", "III", "IV", "V", "VI", "VII"]
     dic_gam, mod_bin, mod_mod = {}, [], {}
     lis_gam1, lis_gam2 = "1234567", "12345678"  # Afin de comparer l'ordre des chiffres de l'utilisateur.
     zer_zer, gam_gam = False, False
@@ -341,7 +344,7 @@ def print_hi():
                 for qi in not_dico.keys():
                     mem_nom += not_dico[qi][1]
                     gam_nom += tab_type[int(qi)] + " | "
-                print(lineno(), "mem_nom:", mem_nom, "gam_nom:", gam_nom, "SAISIE OK ----\n", tip_form)
+                print(lineno(), "mem_nom:", mem_nom, "gam_nom:", gam_nom, "SAISIE OK ----")
                 for ind in range(len(tip_form)):
                     ind1 = tip_form[ind]  # Données construites
                     ind2 = gam_maj[ind]  # Données majeures
@@ -368,33 +371,44 @@ def print_hi():
         else:
             ind_sig = "0"
         note_sig = ind_sig
-    print(lineno(), "note_sig:", note_sig, "tip_form:", tip_form)
+    (lineno(), "note_sig:", note_sig, "tip_form:", tip_form)
     (lineno(), "Tonalité signée not_dico:", not_dico)
     #
 
     '''Tonique déductive : Cherche les formules numéraires similaires dans globdicTcoup.txt {dic_codage}'''
     if tip_rich == "2":
         """Condition utilisant la gamme recherchée dans le fichier[globdicTcoup.txt/dic_codage (dictionnaire)]"""
-        print(lineno(), "not_dico:", not_dico, "\ntip_form:", tip_form, "k1_dic:", k1_dic)
+        (lineno(), "not_dico:", not_dico, "\ntip_form:", tip_form, "k1_dic:", k1_dic)
         ind_dic = {}
         for iu in k1_dic:  # Construction dictionnaire ind_dic[clé=degré, valeur=index]
             kiu = mod_use.index(iu)  # Index du degré dans le mode utilisateur
             ind_dic[iu] = kiu  # Dictionnaire
         long_code, long_key, ko = len(dic_codage), len(ind_dic.keys()), 0
-
+        tab_key.clear()
         for dc in range(1, long_code + 1):
-            loc = 0
-            ec = str(dic_codage[dc])  # Récupération modèle du fichier.
-            for key, val in ind_dic.items():
-                ik = ec.index(key)  # Index de la clé dans le modèle.
+            ec = str(dic_codage[dc])  # Récupération modèle[ec] du fichier.
+            for key, val in ind_dic.items():  # Lecture dictionnaire utilisateur
+                ik = ec.index(key)  # Index de la clé dans le modèle[ec].
                 (lineno(), "ik:", ik, "ec:", ec)
-                if ik == val:
-                    loc += 1
-                    if loc == long_key:
-                        print(lineno(), "ik:", ik, "key:", key, "ec:", ec)
-            (lineno(), "*** loc:", loc, "ec:", ec)
+                if ik == val and ec not in tab_key:
+                    tab_key.append(ec)
+                    (lineno(), "ik:", ik, "key:", key, "ec:", ec, "val:", val)
+            (lineno(), "*** ec:", ec)
+        (lineno(), len(tab_key), "tab_key:", tab_key, "ind_dic:", ind_dic)
+        loc = 0
+        while loc < 13:  # Répété plusieurs fois pour un meilleur nettoyage.
+            loc += 1
+            for tk in tab_key:
+                for key, val in ind_dic.items():
+                    ik = tk.index(key)
+                    (lineno(), "tk:", tk, "key:", key, "ik:", ik, "val:", val)
+                    if ik != val or tab_key.count(tk) > 1:
+                        tab_key.remove(tk)
+                        (lineno(), "   REMOVE tk:", tk, "key:", key, " : ", ik, val)
+                        break
+        (lineno(), "tab_key", tab_key, "len(tab_key):", len(tab_key))
 
-    print(lineno(), "tip_rich:", tip_rich)
+    (lineno(), "tip_rich:", tip_rich)
     if tip_rich == "0":
         print(lineno(), "tip_rich = '0':", tip_rich)
         while 1:
@@ -430,12 +444,14 @@ def print_hi():
     def mode(module):
         """Réception 102034050607"""
         "# 1 Transformation en mode binaire"
+        dic_gam[module] = []
+        mod_bin.clear()
         for mb in module:
             if mb != '0':
                 mod_bin.append('1')
             else:
                 mod_bin.append('0')
-        (lineno(), "mod_bin:", mod_bin, "\tmodule:", module)
+        (lineno(), "mod_bin:", mod_bin, "\tmodule:", module, len(module))
 
         "# 2 Transformation en mode unaire"
         mod_jeu, mid_mod, mid_jeu = "", [], []
@@ -453,8 +469,10 @@ def print_hi():
                         mid_mod.append('0')
                         mod_mod[xm].append('0')
                         ind_mj += 1
-                    else:
+                        (lineno(), "       mo:", mo, "mb:", mb, "mid_mod:", mid_mod)
+                    elif mo < 7:
                         mo += 1
+                        (lineno(), "mo:", mo, "mb:", mb)
                         ind_mj += 1  # Index cycle chrono
                         ind_mo = gam_maj.index(str(mo))  # Index chiffre unaire.
                         res_ind = ind_mj - ind_mo
@@ -475,9 +493,9 @@ def print_hi():
                 deg_mod = mod_bin.pop(0)
                 mod_bin.append(deg_mod)
             jeu_jeu = mod_jeu, mid_jeu
-            dic_gam[mod_use].append(jeu_jeu)
+            dic_gam[module].append(jeu_jeu)
             (lineno(), "mod_mod:", mod_mod[xm], "mod_jeu:", mod_jeu, "mid_jeu:", mid_jeu)
-        (lineno(), "FOR Fonction mode:", module, type(module))
+        (lineno(), "FOR Fonction mode:", module, type(module), "\n dic_gam:", dic_gam)
 
     def signal(ds):
         """Reçoit l'altération et retourne sa valeur"""
@@ -498,8 +516,8 @@ def print_hi():
     # Définir la gamme analogique qui est en relation avec la saisie utilisateur.
     def gamme():
         """Fonction chargée de transformer une forme numéraire en une forme analogique"""
-        print(lineno(), "dic_maj:", dic_maj[note_dia], "note_dia:", note_dia, "note_sig:", note_sig)
-        print(lineno(), "gam_maj:", gam_maj)
+        (lineno(), "dic_maj:", dic_maj[note_dia], "note_dia:", note_dia, "note_sig:", note_sig)
+        (lineno(), "gam_maj:", gam_maj)
         for yo in range(12):
             if mod_use[yo] != "0":
                 ind_maj = gam_maj.index(mod_use[yo])  # Emplacement majeur du degré
@@ -509,7 +527,7 @@ def print_hi():
                     deg_sig = deg_maj[:len(deg_maj) - 1]  # Récupération de l'altération
                     val_sig = signal(deg_sig)
                     sig_loc += val_sig
-                    deg_maj = deg_maj[len(deg_maj)-1:]
+                    deg_maj = deg_maj[len(deg_maj) - 1:]
                     (lineno(), "deg_maj:", deg_maj, "deg_sig:", deg_sig, "val_sig:", val_sig, "sig_loc:", sig_loc)
                 sig_loc += int(note_sig)
                 val_sig = signal(sig_loc)
@@ -519,13 +537,27 @@ def print_hi():
                 (yo, lineno(), "dic_maj:", dic_maj[note_dia][yo], "ind_maj:", ind_maj, "sig_loc:", sig_loc)
         fou = 0
         for cle in dic_gam[mod_use]:
+            ind_clefs = dic_gam[mod_use].index(cle)
+            if ind_clefs == 0:
+                deg_gam = 0
+            else:
+                deg_gam = 7 - ind_clefs
+            clef = cle[1]
+            classic_physic[clef] = []
+            (lineno(), "mod_use:", mod_use, "cle:", cle)
             if cle[1] in cle_classic:
                 job = cle_classic.index(cle[1])
-                print(lineno(), "cle_classic: ", cle_classic[job], pre_classic[cle_classic[job]], "job:", job, fou)
+                app = list(pre_classic[cle_classic[job]]), "classic", mod_use, deg_rom[deg_gam]
+                classic_physic[clef].append(app)
+                (lineno(), "cle_classic: ", cle_classic[job], pre_classic[cle_classic[job]], "job:", job, fou)
             if cle[1] in cle_physic:
                 job = cle_physic.index(cle[1])
-                print(lineno(), "cle_physic:  ", cle_physic[job], pre_physic[cle_physic[job]], "job:", job, fou)
+                app = list(pre_physic[cle_physic[job]]), "physic", mod_use, deg_rom[deg_gam]
+                classic_physic[clef].append(app)
+                (lineno(), "cle_physic:  ", cle_physic[job], pre_physic[cle_physic[job]], "job:", job, fou)
             fou += 1
+            if not classic_physic[clef]:
+                del classic_physic[clef]
         ("\n", lineno(), "dic_gam:", dic_gam, "\n tip_form:", tip_form, "\n gam_util:", gam_util)
 
     # Fonction principale ☺
@@ -534,10 +566,18 @@ def print_hi():
         mode(mod_use)
         gam_util.clear()
         gamme()
-        print(lineno(), "mod_use:", mod_use, "gam_util:", gam_util)
+        (lineno(), "* mod_use:", mod_use, "gam_util:", gam_util)
         (lineno(), "mod_mod:", mod_mod)
-        (lineno(), "dic_gam:", dic_gam)
         (lineno(), "cle_classic:", cle_classic[0], "\ncle_physic:", cle_physic[0])
+    if tab_key:
+        for m_u in tab_key:
+            mod_use = m_u
+            mode(mod_use)
+            gam_util.clear()
+            gamme()
+            (lineno(), "*** mod_use:", mod_use, "gam_util:", gam_util)
+    (lineno(), "tab_key:", tab_key)
+    print(lineno(), "dic_gam:", dic_gam.keys(), "\n\n classic_physic:", classic_physic)
 
 
 if __name__ == '__main__':
