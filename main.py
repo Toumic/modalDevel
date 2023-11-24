@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 # Auteur : Cabviva septembre 2023
 
-# Ce programme consiste à recueillir des identités modales.
-# Sous une forme numérique de la tonalité avec zéro pour un intervalle.
+# Ce programme consiste à recueillir des identités modales,
+# sous une forme numérique de la tonalité avec zéro pour un intervalle.
 
 
 # # Vérification fichier des 462 modes de tétracordes couplés
 """
-Dictionnaire dic_codage = Liste globale des modèles modaux.
-Dictionnaire pre_classic = Clefs toniques fondamentales en version classique (sommaire).
+Dictionnaire "dic_codage" = Liste globale des modèles modaux.
+Dictionnaire "pre_classic" = Clefs toniques fondamentales en version classique (sommaire).
     Sommaire = Les notes altérées par un signe forment la base hiérarchique,,,
 Dictionnaire pre_physic = Clefs toniques primitives en version physique (poids).
     Physique = Les notes altérées forment des pesants gravitationnels,,,"""
@@ -124,7 +124,7 @@ def print_hi():
     gam_maj = ['1', '0', '2', '0', '3', '4', '0', '5', '0', '6', '0', '7']
     deg_rom = ["I", "II", "III", "IV", "V", "VI", "VII"]
     dic_gam, mod_bin, mod_mod = {}, [], {}
-    lis_gam1, lis_gam2 = "1234567", "12345678"  # Afin de comparer l'ordre des chiffres de l'utilisateur.
+    lis_gam1, lis_gam2 = "1234567", "12345678"  # Afin de comparer l’ordre des chiffres de l’utilisateur.
     zer_zer, gam_gam = False, False
     (lineno(), "tab_inf:", tab_inf)
     message_erreur = ""
@@ -138,17 +138,29 @@ def print_hi():
     if note_dia == '':
         note_dia = 'c'
     if not note_dia.isupper():  # Mettre en majuscule.
-        note_dia = note_dia.upper()  # ("Note transformée en majuscule", note_dia)
+        note_dia = note_dia.upper()  # ("La note est transformée en majuscule", "note_dia")
     #
     print(lineno(), "\n##### INPUT ALTÉRATION #########################################################")
     "# L'utilisateur altère la tonique"
+    ord_sup, ord_inf, ind_sig = "+x^", "-o*", ""
     note_sig = input("<return> par défaut = non-altéré.\n"
                      "Choisissez l'altération [+, x, ^, -, o, *] : ")
     if note_sig != "":
-        if note_sig in tab_inf:
-            ind_sig = tab_inf.index(note_sig) - 24
-        else:
-            ind_sig = tab_sup.index(note_sig)
+        "# Quand not_alto contient plusieurs altérations"
+        if len(note_sig) > 1:  # Reconnaissance des altérations déclarées.
+            nbr_un = 0
+            for un in note_sig:
+                if un in ord_sup:  # ord_sup = "+x^"
+                    nbr_un += tab_sup.index(un)
+                else:  # ord_inf = "-o*"
+                    nbr_un += tab_inf.index(un) - 24
+            if nbr_un > -1:
+                ind_sig = tab_sup[nbr_un]
+            elif nbr_un < 0:
+                ind_sig = tab_inf[nbr_un]
+            if not ind_sig:
+                ind_sig = "0"
+            (lineno(), "INF nbr_un:", nbr_un, "ind_sig:", ind_sig)
     else:
         ind_sig = "0"
     note_sig = ind_sig
@@ -174,7 +186,7 @@ def print_hi():
                 print("\n##### ERREUR EN COURS ########################################################")
                 print(lineno(), message_erreur, "Changez votre choix !", not_dico)
             #
-            print(lineno(), "\n##### INPUT TYPE RECHERCHE #############################################")
+            print(lineno(), "\n##### INPUT GAMME RECHERCHÉE ###########################################")
             "# L'utilisateur choisit les notes et les altérations"
             not_type = input("############################ FAITES VOTRE CHOIX #########################\n"
                              "<return> par défaut = majeure.\n"
@@ -192,7 +204,7 @@ def print_hi():
             "# Signer le niveau majeur, c'est comme signer la note tonique (note_sig/ind_sig)"
             ok_saisie = True
             tip_form = ["1", "", "", "", "", "", "", "", "", "", "", ""]
-            not_alto, not_copa, deg_duo, ord_sup, ord_inf = "", not_type, [], "+x^", "-o*"
+            not_alto, not_copa, deg_duo = "", not_type, []
             not_dico.clear()  # not_dico = {'1': ['o', 'o1'], '5': ['*', '*5']}
             copa = list(not_copa)
             (lineno(), "copa:", copa)
@@ -244,16 +256,16 @@ def print_hi():
             # ############################# CONTRÔLE SAISIE ###############################################
             "# Contrôle de l'entrée utilisateur"
             k1_dic = list(not_dico.keys())
-            k1_dic.sort()  # k1_dic = Liste des clés des degrés choisis par l'utilisateur.
-            gam_nat = []  # Recueil les degrés inchangés et hors tip_form
+            k1_dic.sort()  # k1_dic = Liste des clés des degrés choisis par l’utilisateur.
+            gam_nat = []  # Recueil les degrés inchangés et hors "tip_form"
             mod_use = ''
-            (lineno(), "not_dico:", not_dico)
+            print(lineno(), "not_dico:", not_dico)
             for k1 in k1_dic:  # Liste les clés de not_dico.keys()
                 k0 = int(k1)  # k0 = Copie le degré original.
-                if not_dico[k1][0] in tab_sup:  # Le signe d'altération est parmi les signes augmentés.
+                if not_dico[k1][0] in tab_sup:  # Le signe d’altération est parmi les signes augmentés.
                     (lineno(), "tab_sup = ['', '+', 'x', '^', '+^', 'x^', '^^', '+^^', 'x^^',,, ")
                     ind_k2 = tab_sup.index(not_dico[k1][0])  # Son emplacement parmi les signes.
-                    gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant d'avoir été altéré.
+                    gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant d’avoir été altéré.
                     gam_k21 = gam_k20 + ind_k2  # Son emplacement dans la gamme après avoir été altéré.
                     (lineno(), "^^^^^^^^ K0:", k0, "ind_k2:", ind_k2, "gam_k20:", gam_k20, "gam_k21:", gam_k21)
                     if tip_form[gam_k21] == "":
@@ -274,7 +286,7 @@ def print_hi():
                         print(lineno(), "Case occupée K0 : ", k0, tip_form)
                         print(lineno(), "Erreur \n")
 
-                    # Bouclage jusqu'à ce que k0 n'atteigne plus les notes naturelles...
+                    # Bouclage jusqu’à ce que "k0" n’atteigne plus les notes naturelles…
                     if str(k0) != "1":
                         k0 += 1  # Pour inspecter les degrés supérieurs.
                         while k0 < 8:  # str(k0) not in k1_dic and
@@ -289,7 +301,7 @@ def print_hi():
                                 (lineno(), "tip_form:", tip_form, "str(k0):", str(k0), "k1_dic:", k1_dic)
                             k0 += 1
                             (lineno(), "Addition tip_form:", tip_form)
-                elif not_dico[k1][0] in tab_inf:  # Le signe d'altération est parmi les signes diminués.
+                elif not_dico[k1][0] in tab_inf:  # Le signe d’altération est parmi les signes diminués.
                     (lineno(), "tab_inf = ['', '-', 'o', '*', '-*', 'o*', '**', '-**', 'o**', '***',,, ")
                     ind_k2 = tab_inf.index(not_dico[k1][0]) - 24  # Son emplacement parmi les signes.
                     gam_k20 = gam_maj.index(str(k0))  # Son emplacement dans la gamme avant avoir été altéré.
@@ -498,9 +510,11 @@ def print_hi():
         (lineno(), "FOR Fonction mode:", module, type(module), "\n dic_gam:", dic_gam)
 
     def signal(ds):
-        """Reçoit l'altération et retourne sa valeur"""
+        """La fonction reçoit l'altération et retourne sa valeur"""
         ind_ds = None  # Déclaration de la variable.
         if isinstance(ds, str):
+            if ds == "0":
+                ds = ""
             if ds in tab_sup:
                 ind_ds = tab_sup.index(ds)
             else:
@@ -516,7 +530,7 @@ def print_hi():
     # Définir la gamme analogique qui est en relation avec la saisie utilisateur.
     def gamme():
         """Fonction chargée de transformer une forme numéraire en une forme analogique"""
-        (lineno(), "dic_maj:", dic_maj[note_dia], "note_dia:", note_dia, "note_sig:", note_sig)
+        print(lineno(), "note_dia:", note_dia, "note_sig:", note_sig)
         (lineno(), "gam_maj:", gam_maj)
         for yo in range(12):
             if mod_use[yo] != "0":
@@ -529,7 +543,8 @@ def print_hi():
                     sig_loc += val_sig
                     deg_maj = deg_maj[len(deg_maj) - 1:]
                     (lineno(), "deg_maj:", deg_maj, "deg_sig:", deg_sig, "val_sig:", val_sig, "sig_loc:", sig_loc)
-                sig_loc += int(note_sig)
+                note_sig2 = signal(note_sig)
+                sig_loc += int(note_sig2)
                 val_sig = signal(sig_loc)
                 deg_maj = val_sig + deg_maj
                 gam_util.append(deg_maj)
@@ -558,10 +573,10 @@ def print_hi():
             fou += 1
             if not classic_physic[clef]:
                 del classic_physic[clef]
-        ("\n", lineno(), "dic_gam:", dic_gam, "\n tip_form:", tip_form, "\n gam_util:", gam_util)
+        print("\n", lineno(), "\n gam_util:", gam_util)
 
-    # Fonction principale ☺
-    if mod_use:
+    # Fonctionnalités ☺
+    if mod_use:  # "mod_use", généralement présent d’entrée.
         dic_gam[mod_use] = []
         mode(mod_use)
         gam_util.clear()
@@ -569,7 +584,7 @@ def print_hi():
         (lineno(), "* mod_use:", mod_use, "gam_util:", gam_util)
         (lineno(), "mod_mod:", mod_mod)
         (lineno(), "cle_classic:", cle_classic[0], "\ncle_physic:", cle_physic[0])
-    if tab_key:
+    if tab_key:  # "tab_key", utilisé pour traiter plusieurs choix de gammes.
         for m_u in tab_key:
             mod_use = m_u
             mode(mod_use)
@@ -577,7 +592,7 @@ def print_hi():
             gamme()
             (lineno(), "*** mod_use:", mod_use, "gam_util:", gam_util)
     (lineno(), "tab_key:", tab_key)
-    print(lineno(), "dic_gam:", dic_gam.keys(), "\n\n classic_physic:", classic_physic)
+    print(lineno(), "\ndic_gam:", dic_gam.keys(), "\n classic_physic:", classic_physic)
 
 
 if __name__ == '__main__':
