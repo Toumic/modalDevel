@@ -131,7 +131,7 @@ def print_hi():
     not_dico = {}  # Dictionnaire contenant le(s) choix utilisateur.
     mod_use = ""
     #
-    print(lineno(), "##### INPUT TONIQUE ############################################################")
+    print(lineno(), "##### INPUT NOTE_TONIQUE #########################################################")
     "# Choisir la tonique par construction ou par déduction"
     note_dia = input("<return> par défaut = 'c'.\n"
                      "Choisissez la tonique [C, D, E, F, G, A, B] : ")
@@ -140,7 +140,7 @@ def print_hi():
     if not note_dia.isupper():  # Mettre en majuscule.
         note_dia = note_dia.upper()  # ("La note est transformée en majuscule", "note_dia")
     #
-    print(lineno(), "\n##### INPUT ALTÉRATION #########################################################")
+    print(lineno(), "\n##### INPUT ALTÉRATION_NOTE ####################################################")
     "# L'utilisateur altère la tonique"
     ord_sup, ord_inf, ind_sig = "+x^", "-o*", ""
     note_sig = input("<return> par défaut = non-altéré.\n"
@@ -161,11 +161,14 @@ def print_hi():
             if not ind_sig:
                 ind_sig = "0"
             (lineno(), "INF nbr_un:", nbr_un, "ind_sig:", ind_sig)
+        else:
+            ind_sig = note_sig
+            (lineno(), "note_sig:", note_sig, "ind_sig:", ind_sig)
     else:
         ind_sig = "0"
     note_sig = ind_sig
     #
-    print(lineno(), "\n##### INPUT TYPE RECHERCHE #####################################################")
+    print(lineno(), "\n##### INPUT TYPE_RECHERCHE #####################################################")
     "# Choix d'une définition stricte ou déductive"
     tip_rich = input("<return> par défaut = '1'.\n"
                      "0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
@@ -176,6 +179,7 @@ def print_hi():
     #   ###############################################################################################
     #
     tip_form, k1_dic = ["1", "", "", "", "", "", "", "", "", "", "", ""], None
+
     if tip_rich in ("1", "2"):  # dic_codage[336] = Gamme majeure.
         while 1:
             "# Choisir le type de tonalité (pouvant être une mélodique diminuée (o3))"
@@ -186,7 +190,7 @@ def print_hi():
                 print("\n##### ERREUR EN COURS ########################################################")
                 print(lineno(), message_erreur, "Changez votre choix !", not_dico)
             #
-            print(lineno(), "\n##### INPUT GAMME RECHERCHÉE ###########################################")
+            print(lineno(), "\n##### INPUT GAMME_RECHERCHÉE ###########################################")
             "# L'utilisateur choisit les notes et les altérations"
             not_type = input("############################ FAITES VOTRE CHOIX #########################\n"
                              "<return> par défaut = majeure.\n"
@@ -371,17 +375,40 @@ def print_hi():
                 print(lineno(), "\tmod_use:", mod_use, "gam_nat:", gam_nat)
                 break
 
+    def signal(ds):
+        """La fonction reçoit l'altération et retourne sa valeur"""
+        ind_ds = None  # Déclaration de la variable.
+        if isinstance(ds, str):
+            if ds == "0":
+                ds = ""
+            if ds in tab_sup:
+                ind_ds = tab_sup.index(ds)
+            else:
+                ind_ds = tab_inf.index(ds) - 24
+        elif isinstance(ds, int):
+            if ds > -1:
+                ind_ds = tab_sup[ds]
+            else:
+                ind_ds = tab_inf[ds]
+        (lineno(), "note_sig", note_sig, "ind_ds:", ind_ds, "ds:", ds)
+        return ind_ds
+
     if "1" in not_dico.keys() and not_dico["1"][0] != "":  # Un choix est porté sur la tonique altérée
         '''Quand dans le choix, il y a [signé majeur] = le signé majeur remplace la valeur de note_sig'''
+        note_sig0, ind_sig0 = note_sig, 0
         note_sig = not_dico["1"][0]
         if note_sig != "":
             if note_sig in tab_sup:
                 ind_sig = tab_sup.index(note_sig)
             elif note_sig in tab_inf:
                 ind_sig = tab_inf.index(note_sig) - 24
-            print(lineno(), "note_dia:", note_dia, "\t\tind_sig:", ind_sig)
+            (lineno(), "note_dia:", note_dia, "\t\tind_sig:", ind_sig)
         else:
             ind_sig = "0"
+        if note_sig0 != "":
+            ind_sig0 = signal(note_sig0)
+            ind_sig += ind_sig0
+            (lineno(), "note_sig0:", note_sig0, "ind_sig0:", ind_sig0, "ind_sig:", ind_sig)
         note_sig = ind_sig
     (lineno(), "note_sig:", note_sig, "tip_form:", tip_form)
     (lineno(), "Tonalité signée not_dico:", not_dico)
@@ -509,28 +536,10 @@ def print_hi():
             (lineno(), "mod_mod:", mod_mod[xm], "mod_jeu:", mod_jeu, "mid_jeu:", mid_jeu)
         (lineno(), "FOR Fonction mode:", module, type(module), "\n dic_gam:", dic_gam)
 
-    def signal(ds):
-        """La fonction reçoit l'altération et retourne sa valeur"""
-        ind_ds = None  # Déclaration de la variable.
-        if isinstance(ds, str):
-            if ds == "0":
-                ds = ""
-            if ds in tab_sup:
-                ind_ds = tab_sup.index(ds)
-            else:
-                ind_ds = tab_inf.index(ds) - 24
-        elif isinstance(ds, int):
-            if ds > -1:
-                ind_ds = tab_sup[ds]
-            else:
-                ind_ds = tab_inf[ds]
-        (lineno(), "note_sig", note_sig, "ind_ds:", ind_ds, "ds:", ds)
-        return ind_ds
-
     # Définir la gamme analogique qui est en relation avec la saisie utilisateur.
     def gamme():
         """Fonction chargée de transformer une forme numéraire en une forme analogique"""
-        print(lineno(), "note_dia:", note_dia, "note_sig:", note_sig)
+        (lineno(), "note_dia:", note_dia, "note_sig:", note_sig)
         (lineno(), "gam_maj:", gam_maj)
         for yo in range(12):
             if mod_use[yo] != "0":
@@ -544,6 +553,8 @@ def print_hi():
                     deg_maj = deg_maj[len(deg_maj) - 1:]
                     (lineno(), "deg_maj:", deg_maj, "deg_sig:", deg_sig, "val_sig:", val_sig, "sig_loc:", sig_loc)
                 note_sig2 = signal(note_sig)
+                if isinstance(note_sig2, str):
+                    note_sig2 = signal(note_sig2)
                 sig_loc += int(note_sig2)
                 val_sig = signal(sig_loc)
                 deg_maj = val_sig + deg_maj

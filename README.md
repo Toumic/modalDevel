@@ -50,6 +50,7 @@ Il va se remplir avec des nouvelles gammes, au fur et à mesure de la recherche.
 #### Éléments entrainants des erreurs
 ~~+36+ : Créer une solution pour remettre en ordre les entrées utilisateur (quand c'est possible)~~ `réglé`<br>
 ~~o1 : Produit -2 qui n'est pas une clé de dic_120~~ `réglé`<br>
-Aucun moyen de gérer une gamme dont la tonique serait mineure ou autre (exemple SI bémol) <br>
+~~Aucun moyen de gérer une gamme dont la tonique serait mineure ou autre (exemple SI bémol)~~ `réglé`<br>
+~~Problème entre l'altération du 1er degré : "INPUT ALTÉRATION_NOTE", et "INPUT GAMME_RECHERCHÉE"~~ `réglé`<br>
 
 
