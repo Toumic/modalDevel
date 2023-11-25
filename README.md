@@ -45,7 +45,9 @@ soit un signe altératif, cette fonction est appelée par la fonction **gamme**.
 <br><br>
 
 ### le fichier content_mode.txt
-Il va se remplir avec des nouvelles gammes, au fur et à mesure de la recherche. Pour le moment, il n'est pas utilisé.<br>
+Il va se remplir avec des nouvelles gammes, au fur et à mesure de la recherche. Pour le moment, 
+il n'est pas utilisé. Il peut servir pour retracer les gammes parcourues dans une session, on peut aussi y créer
+des adaptations fonctionnelles.<br>
 
 #### Éléments entrainants des erreurs
 ~~+36+ : Créer une solution pour remettre en ordre les entrées utilisateur (quand c'est possible)~~ `réglé`<br>

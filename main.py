@@ -140,7 +140,7 @@ def print_hi():
     if not note_dia.isupper():  # Mettre en majuscule.
         note_dia = note_dia.upper()  # ("La note est transformée en majuscule", "note_dia")
     #
-    print(lineno(), "\n##### INPUT ALTÉRATION_NOTE ####################################################")
+    print(lineno(), "##### INPUT ALTÉRATION_NOTE ######################################################")
     "# L'utilisateur altère la tonique"
     ord_sup, ord_inf, ind_sig = "+x^", "-o*", ""
     note_sig = input("<return> par défaut = non-altéré.\n"
@@ -168,7 +168,7 @@ def print_hi():
         ind_sig = "0"
     note_sig = ind_sig
     #
-    print(lineno(), "\n##### INPUT TYPE_RECHERCHE #####################################################")
+    print(lineno(), "##### INPUT TYPE_RECHERCHE #######################################################")
     "# Choix d'une définition stricte ou déductive"
     tip_rich = input("<return> par défaut = '1'.\n"
                      "0 = Recherche formule. 1 = Recherche stricte. 2 = Recherche déductive : ")
@@ -190,7 +190,7 @@ def print_hi():
                 print("\n##### ERREUR EN COURS ########################################################")
                 print(lineno(), message_erreur, "Changez votre choix !", not_dico)
             #
-            print(lineno(), "\n##### INPUT GAMME_RECHERCHÉE ###########################################")
+            print(lineno(), "##### INPUT GAMME_RECHERCHÉE #############################################")
             "# L'utilisateur choisit les notes et les altérations"
             not_type = input("############################ FAITES VOTRE CHOIX #########################\n"
                              "<return> par défaut = majeure.\n"
@@ -203,7 +203,6 @@ def print_hi():
                              "Choisir un type ou plusieurs types de gamme : ")
             #   #######################################################################################
             #
-            print(lineno())
             "# Traitement des demandes des tonalités signées"
             "# Signer le niveau majeur, c'est comme signer la note tonique (note_sig/ind_sig)"
             ok_saisie = True
@@ -360,7 +359,7 @@ def print_hi():
                 for qi in not_dico.keys():
                     mem_nom += not_dico[qi][1]
                     gam_nom += tab_type[int(qi)] + " | "
-                print(lineno(), "mem_nom:", mem_nom, "gam_nom:", gam_nom, "SAISIE OK ----")
+                print(lineno(), "gam_nom:", gam_nom, "SAISIE OK ----")
                 for ind in range(len(tip_form)):
                     ind1 = tip_form[ind]  # Données construites
                     ind2 = gam_maj[ind]  # Données majeures
@@ -372,7 +371,7 @@ def print_hi():
                         mod_use += "0"
                         (lineno(), "ind2:ok", ind2)
                     (lineno(), "ind1:", ind1, "           \t\t\tind2:", ind2)
-                print(lineno(), "\tmod_use:", mod_use, "gam_nat:", gam_nat)
+                (lineno(), "\tmod_use:", mod_use, "gam_nat:", gam_nat)
                 break
 
     def signal(ds):
@@ -573,18 +572,18 @@ def print_hi():
             (lineno(), "mod_use:", mod_use, "cle:", cle)
             if cle[1] in cle_classic:
                 job = cle_classic.index(cle[1])
-                app = list(pre_classic[cle_classic[job]]), "classic", mod_use, deg_rom[deg_gam]
+                app = list(pre_classic[cle_classic[job]]), "classic", cle_classic[job], deg_rom[deg_gam]
                 classic_physic[clef].append(app)
                 (lineno(), "cle_classic: ", cle_classic[job], pre_classic[cle_classic[job]], "job:", job, fou)
             if cle[1] in cle_physic:
                 job = cle_physic.index(cle[1])
-                app = list(pre_physic[cle_physic[job]]), "physic", mod_use, deg_rom[deg_gam]
+                app = list(pre_physic[cle_physic[job]]), "physic", cle_physic[job], deg_rom[deg_gam]
                 classic_physic[clef].append(app)
                 (lineno(), "cle_physic:  ", cle_physic[job], pre_physic[cle_physic[job]], "job:", job, fou)
             fou += 1
             if not classic_physic[clef]:
                 del classic_physic[clef]
-        print("\n", lineno(), "\n gam_util:", gam_util)
+        print(lineno(), " gam_util:", gam_util, mod_use)
 
     # Fonctionnalités ☺
     if mod_use:  # "mod_use", généralement présent d’entrée.
@@ -603,7 +602,7 @@ def print_hi():
             gamme()
             (lineno(), "*** mod_use:", mod_use, "gam_util:", gam_util)
     (lineno(), "tab_key:", tab_key)
-    print(lineno(), "\ndic_gam:", dic_gam.keys(), "\n classic_physic:", classic_physic)
+    print(lineno(), "dic_gam:", dic_gam.keys(), "\n classic_physic:", classic_physic)
 
 
 if __name__ == '__main__':
