@@ -144,14 +144,16 @@ def print_hi():
     print(lineno(), "##### INPUT ALTÉRATION_NOTE ######################################################")
     "# L'utilisateur altère la tonique"
     ord_sup, ord_inf, ind_sig = "+x^", "-o*", ""
-    note_sig = input("<return> par défaut = non-altéré.\n"
+    note_sig = input("<return> par défaut = La tonique n'est pas altérée.\n"
                      "Choisissez l'altération [+, x, ^, -, o, *] : ")
     if note_sig != "":
         "# Quand not_alto contient plusieurs altérations"
         if len(note_sig) > 1:  # Reconnaissance des altérations déclarées.
             nbr_un = 0
             for un in note_sig:
-                if un in ord_sup:  # ord_sup = "+x^"
+                if un in ("1", "2", "3", "4", "5", "6", "7", "8"):
+                    continue  # La valeur int(un) est perdue ☺.
+                elif un in ord_sup:  # ord_sup = "+x^"
                     nbr_un += tab_sup.index(un)
                 else:  # ord_inf = "-o*"
                     nbr_un += tab_inf.index(un) - 24
@@ -418,7 +420,7 @@ def print_hi():
     '''Tonique déductive : Cherche les formules numéraires similaires dans globdicTcoup.txt {dic_codage}'''
     if tip_rich == "2":
         """Condition utilisant la gamme recherchée dans le fichier[globdicTcoup.txt/dic_codage (dictionnaire)]"""
-        (lineno(), "not_dico:", not_dico, "\ntip_form:", tip_form, "k1_dic:", k1_dic)
+        print(lineno(), "not_dico:", not_dico, "\ntip_form:", tip_form, "k1_dic:", k1_dic)
         ind_dic = {}
         for iu in k1_dic:  # Construction dictionnaire ind_dic[clé=degré, valeur=index]
             kiu = mod_use.index(iu)  # Index du degré dans le mode utilisateur
