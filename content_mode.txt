@@ -1,0 +1,4 @@
+@echo off
+cd /d %~dp0
+wget --mirror --convert-links --adjust-extension --page-requisites --no-parent --execute robots=off https://docs.streamlit.io/
+pause
